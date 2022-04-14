@@ -1,12 +1,17 @@
-let nome = prompt("Qual o nome da vossa senhoria? ;)")
-entrarNaSala ()
+let nome
+function perguntarNome () {
+    nome = prompt("Qual o nome da vossa senhoria? ;)")
+    entrarNaSala ()
+}
+perguntarNome()
+
 
 function entrarNaSala () {
     let usuario = {
         name: nome
       }
     let promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",usuario)
-    promise.then(confirmarAtividade)
+    promise.then(intervalos)
     promise.catch(deuErro)
 }
 function intervalos () {
@@ -30,19 +35,31 @@ function carregarPagina () {
 }
 function deuErro (response) {
     console.log(response)
+    alert("Nickname já existente!!")
+    perguntarNome()
 }
 let corpo
-let contador = 0
+let mensagens
 
 function colocarMensagens (response) {
-    let mensagens = response.data
+    mensagens = response.data
     console.log(mensagens)
     corpo = document.querySelector(".corpo")
     corpo.innerHTML = ""
     for (let i = 0; i < mensagens.length; i++) {
-        corpo.innerHTML += `
+        if (mensagens[i].to === "Todos" || mensagens[i].to === nome) {
+            corpo.innerHTML += `
             <div class="${mensagens[i].type}">
-                <div class="horario">(${mensagens[i].time})</div> 
-                <b>${mensagens[i].from}</b> para <b>${mensagens[i].to}:</b> ${mensagens[i].text}</div>`
+            <div class="horario">(${mensagens[i].time})</div> 
+            <b>${mensagens[i].from}</b> para <b>${mensagens[i].to}:</b> ${mensagens[i].text}</div>`
+            console.log("entrei")
+            
+        }
+       else {
+           corpo.innerHTML += `
+            <div class="${mensagens[i].type} escondido">
+            <div class="horario">(${mensagens[i].time})</div> 
+            <b>${mensagens[i].from}</b> para <b>${mensagens[i].to}:</b> ${mensagens[i].text}</div>`
+       } 
     }
 }

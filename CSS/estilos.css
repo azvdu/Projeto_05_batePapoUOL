@@ -93,3 +93,6 @@ b {
     width: 26px;
     height: 26px;
 }
+.site .corpo .escondido {
+    display: none;
+}
