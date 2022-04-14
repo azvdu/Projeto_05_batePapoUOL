@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #f3f3f3;
+}
+.site .barra-superior {
+    background-color: #FFFFFF;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: fixed;
+
+    box-shadow: 0 2px 5px gray;
+
+    width: 100%;
+    height: 80px;
+    padding: 0 22px 0 22px;
+}
+.site .corpo {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+    padding-top: 106px;
+    padding-bottom: 86px;
+}
+.horario {
+    color: gray;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+b {
+    margin: 0 5px 0 5px;
+}
+.site .corpo .status {
+    background-color: #dcdcdc;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;  
+
+    display: flex;
+
+    width: 100%;
+    padding: 8px;
+}
+.site .corpo .message {
+    background-color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+
+    display: flex;
+
+    width: 100%;
+    padding: 8px;
+}
+.site .corpo .private_message {
+    background-color: #ffdede;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+
+    display: flex;
+
+    width: 100%;
+    padding: 8px;
+}
+.site .barra-mensagem {
+    background-color: #FFFFFF;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    height: 80px;
+    padding: 0 18px 0 18px;
+}
+.site .barra-mensagem input {
+    border: none;
+
+    width: 90%;
+    height: 60px;
+    padding-left: 6px;
+}
+.site .barra-mensagem input::placeholder {
+    font-style: italic;
+}
+.site .barra-mensagem img {
+    width: 26px;
+    height: 26px;
+}
