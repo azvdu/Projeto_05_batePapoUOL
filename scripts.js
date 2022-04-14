@@ -31,7 +31,7 @@ function carregarPagina () {
     let promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages")
     promise.then(colocarMensagens)
     promise.catch(deuErro)
-
+    
 }
 function deuErro (response) {
     console.log(response)
@@ -43,7 +43,6 @@ let mensagens
 
 function colocarMensagens (response) {
     mensagens = response.data
-    console.log(mensagens)
     corpo = document.querySelector(".corpo")
     corpo.innerHTML = ""
     for (let i = 0; i < mensagens.length; i++) {
@@ -51,15 +50,48 @@ function colocarMensagens (response) {
             corpo.innerHTML += `
             <div class="${mensagens[i].type}">
             <div class="horario">(${mensagens[i].time})</div> 
-            <b>${mensagens[i].from}</b> para <b>${mensagens[i].to}:</b> ${mensagens[i].text}</div>`
-            console.log("entrei")
+            <b>${mensagens[i].from}</b> para <b>${mensagens[i].to}:</b> ${mensagens[i].text}
+            </div>`
             
         }
-       else {
-           corpo.innerHTML += `
+        else {
+            corpo.innerHTML += `
             <div class="${mensagens[i].type} escondido">
             <div class="horario">(${mensagens[i].time})</div> 
-            <b>${mensagens[i].from}</b> para <b>${mensagens[i].to}:</b> ${mensagens[i].text}</div>`
-       } 
+            <b>${mensagens[i].from}</b> para <b>${mensagens[i].to}:</b> ${mensagens[i].text}
+            </div>`
+        } 
     }
+    scrollAutomatico()
+}
+let ultimaMensagem
+
+function scrollAutomatico () {
+    let ultimoFilho = corpo.lastChild.innerHTML
+    let ultimo = corpo.lastChild
+    if (ultimoFilho != ultimaMensagem){
+        console.log("entrei")
+        ultimo.scrollIntoView()
+    }
+    ultimaMensagem = ultimoFilho
+}
+
+function enviarMensagem () {
+    let input = document.querySelector("input")
+    let texto = input.value
+    console.log(texto)
+    
+    let mensagem = {
+        from: nome,
+        to: "Todos",
+        text: texto,
+        type: "message"
+    }
+    let promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", mensagem)
+    promise.then(limparMensagem)
+    promise.catch(reload)
+    
+}
+function reload () {
+    window.location.reload()
 }
